@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · CampusCart Analytics{% endblock %}
+{% block content %}
+<section class="welcome-hero">
+  <div class="hero-copy">
+    <p class="eyebrow">A LITTLE CAMPUS MAGIC</p>
+    <h1>Your campus,<br>in good company.</h1>
+    <p>Here’s what’s happening around your store today.</p>
+    <a class="hero-link" href="/orders">Explore recent orders <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <span class="hero-sun"></span>
+    <span class="hero-spark spark-one">✳</span>
+    <span class="hero-spark spark-two">✦</span>
+    <span class="hero-orbit orbit-one"></span>
+    <span class="hero-orbit orbit-two"></span>
+    <span class="hero-note">Made for<br>campus life</span>
+  </div>
+</section>
+
+<div class="section-intro">
+  <div><p class="eyebrow">THE BIG PICTURE</p><h2>Your store at a glance</h2></div>
+  <span class="live-pill"><span></span> LIVE SNAPSHOT</span>
+</div>
+
+<div class="cards">
+  <div class="card revenue-card"><span class="metric-icon" aria-hidden="true">₹</span><p class="metric-label">Delivered revenue</p><h3>₹ {{ "%.2f"|format(kpi.revenue) }}</h3><span class="metric-foot">From completed orders</span></div>
+  <div class="card"><span class="metric-icon" aria-hidden="true">↗</span><p class="metric-label">Delivered orders</p><h3>{{ kpi.orders }}</h3><span class="metric-foot">Successfully completed</span></div>
+  <div class="card"><span class="metric-icon" aria-hidden="true">◎</span><p class="metric-label">Registered students</p><h3>{{ students }}</h3><span class="metric-foot">Part of your campus</span></div>
+</div>
+
+<div class="section-intro insights-heading">
+  <div><p class="eyebrow">FRESH INSIGHTS</p><h2>What’s moving on campus</h2></div>
+</div>
+<div class="two-col">
+  <section class="panel">
+    <div class="panel-heading"><span class="panel-icon">✦</span><div><h3>Campus favourites</h3><p>Top products by revenue</p></div></div>
+    <table>
+      <thead><tr><th>Product</th><th>Sold</th><th>Revenue</th></tr></thead>
+      <tbody>
+      {% for r in top %}
+      <tr><td>{{ r.name }}</td><td>{{ r.sold }}</td><td>₹ {{ r.revenue }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <section class="panel">
+    <div class="panel-heading"><span class="panel-icon panel-icon-peach">◒</span><div><h3>Category mix</h3><p>Delivered revenue by category</p></div></div>
+    <table>
+      <thead><tr><th>Category</th><th>Revenue</th></tr></thead>
+      <tbody>
+      {% for r in cats %}
+      <tr><td>{{ r.category }}</td><td>₹ {{ r.revenue }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
+{% endblock %}

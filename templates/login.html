@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Sign in · CampusCart Analytics{% endblock %}
+{% block content %}
+<div class="login-box">
+  <div class="login-brand">
+    <span class="brand-mark" aria-hidden="true">▣</span>
+    <h1>CampusCart Analytics</h1>
+  </div>
+  <p class="intro">Sign in to view campus store performance.</p>
+  <form method="POST">
+    <label for="username">Username</label>
+    <input id="username" type="text" name="username" placeholder="Enter your username" autocomplete="username" required>
+    <label for="password">Password</label>
+    <input id="password" type="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+    <button type="submit">Sign in</button>
+  </form>
+  <p class="demo-credentials muted small">Sign in as <strong>admin</strong> or <strong>analyst</strong> using the password configured when the local database was created.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Students · CampusCart Analytics{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <p class="eyebrow">Campus directory</p>
+  <h1>Students</h1>
+  <p class="muted">Manage student records and keep the directory up to date.</p>
+</div>
+
+{% if session['role'] == 'admin' %}
+<form method="POST" class="inline-form">
+  <input type="text" name="name" placeholder="Name" required>
+  <select name="course">
+    <option>BCA</option><option>BBA</option><option>B.Com</option><option>BSc</option>
+  </select>
+  <input type="number" name="year" placeholder="Year" min="1" max="4" required>
+  <input type="text" name="phone" placeholder="Phone" required>
+  <button type="submit">Add Student</button>
+</form>
+{% endif %}
+
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>ID</th><th>Name</th><th>Course</th><th>Year</th><th>Phone</th>
+        {% if session['role'] == 'admin' %}<th>Action</th>{% endif %}</tr></thead>
+    <tbody>
+    {% for r in rows %}
+    <tr>
+      <td>{{ r.student_id }}</td><td>{{ r.name }}</td><td>{{ r.course }}</td>
+      <td>{{ r.year }}</td><td>{{ r.phone }}</td>
+      {% if session['role'] == 'admin' %}
+      <td><div class="table-actions">
+        <a class="btn" href="/students/edit/{{ r.student_id }}">Edit</a>
+        <a class="btn danger" href="/students/delete/{{ r.student_id }}"
+           onclick="return confirm('Delete karna hai?')">Delete</a>
+      </div></td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

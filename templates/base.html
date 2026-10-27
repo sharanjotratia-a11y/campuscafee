@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}CampusCart Analytics{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v=4) }}">
+</head>
+<body>
+  {% if session.get('role') %}
+  <header class="site-header">
+    <a class="brand" href="/dashboard">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>
+      </span>
+      <span class="brand-copy">CampusCart<span>campus, made simpler</span></span>
+    </a>
+    <nav class="nav-links desktop-nav" aria-label="Main navigation">
+      <a class="{{ 'active' if request.endpoint == 'dashboard' else '' }}" href="/dashboard"><span class="nav-icon">⌂</span>Overview</a>
+      <a class="{{ 'active' if request.endpoint in ['students', 'edit_student'] else '' }}" href="/students"><span class="nav-icon">♙</span>Students</a>
+      <a class="{{ 'active' if request.endpoint == 'orders' else '' }}" href="/orders"><span class="nav-icon">▤</span>Orders</a>
+      <a class="{{ 'active' if request.endpoint == 'reports' else '' }}" href="/reports"><span class="nav-icon">▥</span>Insights</a>
+    </nav>
+    <a class="user-chip" href="/logout" aria-label="Log out {{ session['username'] }}">
+      <span class="user-avatar">{{ session['username'][0]|upper }}</span>
+      <span class="user-copy">{{ session['username'] }}<small>Log out</small></span>
+      <span class="user-exit" aria-hidden="true">↗</span>
+    </a>
+  </header>
+  <nav class="mobile-nav" aria-label="Main navigation">
+    <a class="{{ 'active' if request.endpoint == 'dashboard' else '' }}" href="/dashboard"><span class="dock-icon">⌂</span><span>Home</span></a>
+    <a class="{{ 'active' if request.endpoint in ['students', 'edit_student'] else '' }}" href="/students"><span class="dock-icon">♙</span><span>Students</span></a>
+    <a class="{{ 'active' if request.endpoint == 'orders' else '' }}" href="/orders"><span class="dock-icon">▤</span><span>Orders</span></a>
+    <a class="{{ 'active' if request.endpoint == 'reports' else '' }}" href="/reports"><span class="dock-icon">▥</span><span>Insights</span></a>
+  </nav>
+  {% endif %}
+
+  <main class="container {{ 'auth-container' if not session.get('role') else '' }}">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for cat, msg in messages %}
+        <div class="flash {{ cat }}">{{ msg }}</div>
+      {% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

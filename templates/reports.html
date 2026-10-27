@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Reports · CampusCart Analytics{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <p class="eyebrow">Insights</p>
+  <h1>Reports</h1>
+  <p class="muted">Explore student engagement and spending across the campus store.</p>
+</div>
+
+<h3 class="section-title">Students with no orders <span class="muted small">· engagement opportunity</span></h3>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Name</th><th>Course</th></tr></thead>
+    <tbody>
+    {% for r in inactive %}
+    <tr><td>{{ r.name }}</td><td>{{ r.course }}</td></tr>
+    {% else %}
+    <tr><td colspan="2">All students have placed an order.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h3 class="section-title">Student spending</h3>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Name</th><th>Course</th><th>Total spent</th></tr></thead>
+    <tbody>
+    {% for r in spending %}
+    <tr><td>{{ r.name }}</td><td>{{ r.course }}</td><td>₹ {{ r.total }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

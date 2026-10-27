@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Orders · CampusCart Analytics{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <p class="eyebrow">Store activity</p>
+  <h1>Orders</h1>
+  <p class="muted">Review recent purchases and track their fulfilment status.</p>
+</div>
+
+{% if session['role'] == 'admin' %}
+<form method="POST" class="inline-form">
+  <select name="student_id" required>
+    {% for s in stu %}<option value="{{ s.student_id }}">{{ s.name }}</option>{% endfor %}
+  </select>
+  <select name="product_id" required>
+    {% for p in prod %}<option value="{{ p.product_id }}">{{ p.name }}</option>{% endfor %}
+  </select>
+  <input type="number" name="quantity" placeholder="Qty" min="1" required>
+  <select name="status">
+    <option>Delivered</option><option>Pending</option><option>Cancelled</option>
+  </select>
+  <button type="submit">Add Order</button>
+</form>
+{% endif %}
+
+<p class="muted small">Showing the latest 50 orders</p>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Order ID</th><th>Student</th><th>Date</th><th>Status</th><th>Total</th>
+        {% if session['role'] == 'admin' %}<th>Action</th>{% endif %}</tr></thead>
+    <tbody>
+    {% for r in rows %}
+    <tr>
+      <td>#{{ r.order_id }}</td><td>{{ r.student }}</td><td>{{ r.order_date }}</td>
+      <td><span class="tag {{ r.status|lower }}">{{ r.status }}</span></td>
+      <td>₹ {{ r.total }}</td>
+      {% if session['role'] == 'admin' %}
+      <td><a class="btn danger" href="/orders/delete/{{ r.order_id }}"
+             onclick="return confirm('Delete karna hai?')">Delete</a></td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

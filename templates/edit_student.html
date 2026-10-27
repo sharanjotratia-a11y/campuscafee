@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Edit student · CampusCart Analytics{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <p class="eyebrow">Campus directory</p>
+  <h1>Edit student</h1>
+  <p class="muted">Update the selected student's details.</p>
+</div>
+<form method="POST" class="stack-form">
+  <label for="name">Full name</label>
+  <input id="name" type="text" name="name" value="{{ s.name }}" required>
+  <label for="course">Course</label>
+  <input id="course" type="text" name="course" value="{{ s.course }}" required>
+  <label for="year">Year</label>
+  <input id="year" type="number" name="year" value="{{ s.year }}" required>
+  <label for="phone">Phone</label>
+  <input id="phone" type="text" name="phone" value="{{ s.phone }}" required>
+  <button type="submit">Update</button>
+  <a class="btn" href="/students">Cancel</a>
+</form>
+{% endblock %}
