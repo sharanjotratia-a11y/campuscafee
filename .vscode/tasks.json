@@ -1,0 +1,25 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run CampusCart website",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"CampusCart/app.py"
+			],
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "CampusCart phone access",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"CampusCart/app.py"
+			],
+			"isBackground": true,
+			"group": "build"
+		}
+	]
+}
