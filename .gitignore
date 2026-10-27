@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local configuration and generated data
+.env
+.env.*
+!.env.example
+CampusCart/campuscart.db
+CampusCart/campuscart_data.csv
